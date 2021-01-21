@@ -1,4 +1,5 @@
 require "yaml"
+require "pry"
 
 def load_library(lib)
   emotlib = {}
@@ -15,15 +16,14 @@ end
 def get_japanese_emoticon(yaml, emot)
   #emot = "(￣ー￣)"
   lib = load_library(yaml)
+  binding.pry
   lib.map { |type, emots|
     #type = "smile"
     #emots = {:english=>"=D", :japanese=>"(￣ー￣)"}
     emots.map { |lang, langemot|
       #lang = :english
       #langemot = "=D"
-      if emot === langemot
-        return emots[:japanese]
-      end
+      return emots[:japanese] if emot === langemot
     }
   }
   return "Sorry, that emoticon was not found"
@@ -41,10 +41,9 @@ def get_english_meaning(yaml, emot)
     emots.map { |lang, langemot|
       #lang = :english
       #langemot = O:)
-      if emot === langemot
-        return type
-      end
+      return type if emot === langemot
     }
   }
   return "Sorry, that emoticon was not found"
 end
+
